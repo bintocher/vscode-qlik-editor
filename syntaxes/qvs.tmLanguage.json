@@ -1,0 +1,505 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Qlik",
+  "scopeName": "source.qvs",
+  "fileTypes": [
+    "qvs"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#fieldNames"
+    },
+    {
+      "include": "#macros"
+    },
+    {
+      "include": "#controlStatements"
+    },
+    {
+      "include": "#scriptStatements"
+    },
+    {
+      "include": "#prefixes"
+    },
+    {
+      "include": "#aggregationFunctions"
+    },
+    {
+      "include": "#dateFunctions"
+    },
+    {
+      "include": "#stringFunctions"
+    },
+    {
+      "include": "#numericFunctions"
+    },
+    {
+      "include": "#numericInterpretationFunctions"
+    },
+    {
+      "include": "#conditionalFunctions"
+    },
+    {
+      "include": "#colorFunctions"
+    },
+    {
+      "include": "#rangeFunctions"
+    },
+    {
+      "include": "#exponentialFunctions"
+    },
+    {
+      "include": "#trigFunctions"
+    },
+    {
+      "include": "#probabilityFunctions"
+    },
+    {
+      "include": "#financialFunctions"
+    },
+    {
+      "include": "#geoFunctions"
+    },
+    {
+      "include": "#counterFunctions"
+    },
+    {
+      "include": "#interRecordFunctions"
+    },
+    {
+      "include": "#tableFunctions"
+    },
+    {
+      "include": "#systemFunctions"
+    },
+    {
+      "include": "#fileFunctions"
+    },
+    {
+      "include": "#logicalFunctions"
+    },
+    {
+      "include": "#mappingFunctions"
+    },
+    {
+      "include": "#mathFunctions"
+    },
+    {
+      "include": "#windowFunctions"
+    },
+    {
+      "include": "#legacyFunctions"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#numerics"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.qvs",
+          "match": "(//).*$\\n?"
+        },
+        {
+          "name": "comment.block.qvs",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.qvs"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.qvs"
+            }
+          }
+        },
+        {
+          "name": "comment.block.rem.qvs",
+          "begin": "(?i:^\\s*rem\\b)",
+          "end": ";",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.qvs"
+            }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.qvs",
+          "begin": "'",
+          "end": "'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.qvs"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.qvs"
+            }
+          }
+        }
+      ]
+    },
+    "fieldNames": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.qvs",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.qvs"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.qvs"
+            }
+          }
+        },
+        {
+          "name": "string.quoted.brackets.qvs",
+          "begin": "\\[",
+          "end": "\\]",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.qvs"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.qvs"
+            }
+          }
+        }
+      ]
+    },
+    "macros": {
+      "patterns": [
+        {
+          "name": "variable.other.macro.qvs",
+          "match": "\\$\\(([A-Za-z_][A-Za-z0-9_.]*(?:=[^)]*?)?)\\)",
+          "captures": {
+            "1": {
+              "name": "variable.other.readwrite.qvs"
+            }
+          }
+        }
+      ]
+    },
+    "controlStatements": {
+      "patterns": [
+        {
+          "comment": "Multi-word control flow keywords",
+          "name": "keyword.control.qvs",
+          "match": "(?i)\\b(end\\s+if|end\\s+sub|end\\s+switch|exit\\s+for|exit\\s+do|exit\\s+script|do\\s+while|do\\s+until|loop\\s+while|loop\\s+until|for\\s+each)\\b"
+        },
+        {
+          "comment": "If as control statement (not followed by paren)",
+          "name": "keyword.control.qvs",
+          "match": "(?i)\\b(if)\\b(?!\\s*\\()"
+        },
+        {
+          "comment": "Single-word control flow keywords",
+          "name": "keyword.control.qvs",
+          "match": "(?i)\\b(endswitch|default|elseif|endsub|switch|endif|until|while|call|case|each|else|exit|loop|next|step|then|for|not|sub|do|if|in|to)\\b"
+        }
+      ]
+    },
+    "scriptStatements": {
+      "patterns": [
+        {
+          "comment": "Multi-word script statements",
+          "name": "keyword.other.qvs",
+          "match": "(?i)\\b(lib\\s+connect\\s+to|mapping\\s+load|info\\s+load|bundle\\s+info\\s+load|load\\s+distinct|sql\\s+select|direct\\s+query|left\\s+join|right\\s+join|inner\\s+join|outer\\s+join|left\\s+keep|right\\s+keep|inner\\s+keep|connect\\s+to|group\\s+by|order\\s+by|drop\\s+table|drop\\s+tables|drop\\s+field|drop\\s+fields|rename\\s+field|rename\\s+table|tag\\s+field|untag\\s+field|create\\s+relationship|drop\\s+relationship|section\\s+access|section\\s+application|null\\s+as\\s+null|null\\s+as\\s+value|exit\\s+script)\\b"
+        },
+        {
+          "comment": "STORE ... INTO pattern",
+          "match": "(?i:^\\s*(store)\\s+\\[*\\w*\\]*\\s+(into))",
+          "captures": {
+            "1": {
+              "name": "keyword.other.qvs"
+            },
+            "2": {
+              "name": "keyword.other.qvs"
+            }
+          }
+        },
+        {
+          "comment": "Single-word script statements/keywords",
+          "name": "keyword.other.qvs",
+          "match": "(?i)\\b(noconcatenate|autogenerate|concatenate|disconnect|inputfield|dimension|directory|unqualify|distinct|flushlog|resident|comment|connect|declare|execute|include|measure|qualify|section|binary|buffer|derive|inline|loosen|search|select|alias|sleep|store|trace|unmap|using|where|desc|drop|from|load|star|with|add|asc|let|lib|map|set|sql|as)\\b"
+        }
+      ]
+    },
+    "prefixes": {
+      "patterns": [
+        {
+          "comment": "CrossTable and other prefixes followed by (",
+          "name": "keyword.other.prefix.qvs",
+          "match": "(?i)\\b(crosstable|hierarchy|hierarchybelongsto|intervalmatch|generic)(?=\\s*\\()"
+        },
+        {
+          "comment": "Other prefix keywords",
+          "name": "keyword.other.prefix.qvs",
+          "match": "(?i)\\b(hierarchybelongsto|intervalmatch|noconcatenate|concatenate|crosstable|hierarchy|semantic|mapping|generic|replace|bundle|sample|unless|first|merge|outer|inner|right|left|keep|join|odbc|oledb|info|only|when|add|on)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.logical.qvs",
+          "match": "(?i)\\b(precedes|follows|bitand|bitnot|bitxor|bitor|like|and|not|xor|or)\\b"
+        },
+        {
+          "name": "keyword.operator.comparison.qvs",
+          "match": "<>|<=|>=|<<|>>|<|>|="
+        },
+        {
+          "name": "keyword.operator.arithmetic.qvs",
+          "match": "&|\\+|-|\\*|/"
+        },
+        {
+          "name": "punctuation.separator.qvs",
+          "match": ",|;"
+        }
+      ]
+    },
+    "numerics": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.qvs",
+          "match": "\\b\\d+\\.\\d+([eE][+-]?\\d+)?\\b"
+        },
+        {
+          "name": "constant.numeric.integer.qvs",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "aggregationFunctions": {
+      "patterns": [
+        {
+          "comment": "AGGR group functions",
+          "name": "support.function.aggregate.qvs",
+          "match": "(?i)\\b(FirstSortedValue|LinEst_SSResid|Chi2Test_Chi2|TTest1w_Lower|TTest1w_StErr|TTest1w_Upper|LinEst_SSReg|MissingCount|NumericCount|TTest1_Lower|TTest1_StErr|TTest1_Upper|TTest1w_Conf|TTestw_Lower|TTestw_StErr|TTestw_Upper|ZTestw_Lower|ZTestw_StErr|ZTestw_Upper|Chi2Test_DF|FractileExc|TTest1_Conf|TTest1w_Dif|TTest1w_Sig|TTest_Lower|TTest_StErr|TTest_Upper|TTestw_Conf|ZTest_Lower|ZTest_StErr|ZTest_Upper|ZTestw_Conf|Chi2Test_p|FirstValue|LinEst_SEB|LinEst_SEM|LinEst_SEY|TTest1_Dif|TTest1_Sig|TTest1w_DF|TTest_Conf|TTestw_Dif|TTestw_Sig|ZTest_Conf|ZTestw_Dif|ZTestw_Sig|JsonArray|LastValue|LinEst_DF|LinEst_R2|MaxString|MinString|NullCount|TextCount|TTest1_DF|TTest1w_t|TTest_Dif|TTest_Sig|TTestw_DF|ZTest_Dif|ZTest_Sig|Fractile|Kurtosis|LinEst_B|LinEst_F|LinEst_M|TTest1_t|TTest_DF|TTestw_t|ZTestw_z|TTest_t|ZTest_z|Concat|Correl|Median|Count|StDev|StErr|StEYX|Mode|Only|Skew|Xirr|Xnpv|Avg|Irr|Max|Min|Npv|Sum)(?=\\s*\\()"
+        }
+      ]
+    },
+    "colorFunctions": {
+      "patterns": [
+        {
+          "comment": "CLR group functions",
+          "name": "support.function.color.qvs",
+          "match": "(?i)\\b(LightMagenta|ColorMapHue|ColorMapJet|LightGreen|ColorMix1|ColorMix2|LightBlue|LightCyan|LightGray|DarkGray|LightRed|SysColor|Magenta|Yellow|Black|Brown|Color|Green|White|ARGB|Blue|Cyan|HSL|Red|RGB)(?=\\s*\\()"
+        }
+      ]
+    },
+    "conditionalFunctions": {
+      "patterns": [
+        {
+          "comment": "CND group functions",
+          "name": "support.function.conditional.qvs",
+          "match": "(?i)\\b(EmptyIsNull|MatchRegExI|MatchRegEx|FastMatch|WildMatch|Coalesce|MixMatch|Class|Match|Pick|Alt|If)(?=\\s*\\()"
+        }
+      ]
+    },
+    "counterFunctions": {
+      "patterns": [
+        {
+          "comment": "COUNT group functions",
+          "name": "support.function.counter.qvs",
+          "match": "(?i)\\b(AutoNumberHash128|AutoNumberHash256|AutoNumber|IterNo|RecNo)(?=\\s*\\()"
+        }
+      ]
+    },
+    "dateFunctions": {
+      "patterns": [
+        {
+          "comment": "DATE group functions",
+          "name": "support.function.date.qvs",
+          "match": "(?i)\\b(ConvertToLocalTime|DayNumberOfQuarter|InLunarWeekToDate|SetDateYearMonth|DayNumberOfYear|InQuarterToDate|DaylightSaving|ElapsedSeconds|InMonthsToDate|LunarWeekStart|FirstWorkDate|InMonthToDate|LunarWeekName|InWeekToDate|InYearToDate|LastWorkDate|LunarWeekEnd|MakeWeekDate|QuarterStart|InDayToTime|InLunarWeek|MonthsStart|NetWorkDays|QuarterName|SetDateYear|MonthsName|MonthStart|QuarterEnd|YearToDate|AddMonths|InQuarter|LocalTime|MonthName|MonthsEnd|WeekStart|Year2Date|YearStart|AddYears|DayStart|InMonths|MakeDate|MakeTime|MonthEnd|TimeZone|WeekName|WeekYear|YearName|DayName|InMonth|WeekDay|WeekEnd|YearEnd|DayEnd|InWeek|InYear|Minute|Second|InDay|Month|Today|Hour|Week|Year|Age|Day|GMT|Now|UTC)(?=\\s*\\()"
+        }
+      ]
+    },
+    "exponentialFunctions": {
+      "patterns": [
+        {
+          "comment": "EXP group functions",
+          "name": "support.function.exponential.qvs",
+          "match": "(?i)\\b(Log10|Sqrt|Exp|Log|Pow|Sqr)(?=\\s*\\()"
+        }
+      ]
+    },
+    "fileFunctions": {
+      "patterns": [
+        {
+          "comment": "FILE group functions",
+          "name": "support.function.file.qvs",
+          "match": "(?i)\\b(QvdNoOfRecords|ConnectString|FileExtension|GetFolderPath|QvdCreateTime|QvdNoOfFields|FileBaseName|QvdFieldName|QvdTableName|Attribute|FileName|FilePath|FileSize|FileTime|FileDir)(?=\\s*\\()"
+        }
+      ]
+    },
+    "financialFunctions": {
+      "patterns": [
+        {
+          "comment": "FIN group functions",
+          "name": "support.function.financial.qvs",
+          "match": "(?i)\\b(BlackAndSchole|RangeXirr|RangeXnpv|RangeIrr|RangeNpv|nPer|Rate|Xirr|Xnpv|Irr|Npv|Pmt|FV|PV)(?=\\s*\\()"
+        }
+      ]
+    },
+    "geoFunctions": {
+      "patterns": [
+        {
+          "comment": "GEO group functions",
+          "name": "support.function.geo.qvs",
+          "match": "(?i)\\b(GeoInvProjectGeometry|GeoGetPolygonCenter|GeoProjectGeometry|GeoGetBoundingBox|GeoReduceGeometry|GeoAggrGeometry|GeoBoundingBox|GeoCountVertex|GeoMakePoint|GeoProject)(?=\\s*\\()"
+        }
+      ]
+    },
+    "legacyFunctions": {
+      "patterns": [
+        {
+          "comment": "LEG group functions",
+          "name": "support.function.deprecated.qvs",
+          "match": "(?i)\\b(QlikViewVersion|QlikTechBlue|QlikTechGray|NumCount|NumAvg|NumMax|NumMin|NumSum|QVUser)(?=\\s*\\()"
+        }
+      ]
+    },
+    "logicalFunctions": {
+      "patterns": [
+        {
+          "comment": "LOG group functions",
+          "name": "support.function.logical.qvs",
+          "match": "(?i)\\b(IsRegExI|IsRegEx|IsNull|IsText|False|IsNum|True)(?=\\s*\\()"
+        }
+      ]
+    },
+    "mappingFunctions": {
+      "patterns": [
+        {
+          "comment": "MAPP group functions",
+          "name": "support.function.mapping.qvs",
+          "match": "(?i)\\b(MapSubString|ApplyMap)(?=\\s*\\()"
+        }
+      ]
+    },
+    "mathFunctions": {
+      "patterns": [
+        {
+          "comment": "MATH group functions",
+          "name": "support.function.math.qvs",
+          "match": "(?i)\\b(False|Null|True|Pi|e)(?=\\s*\\()"
+        }
+      ]
+    },
+    "numericFunctions": {
+      "patterns": [
+        {
+          "comment": "NUM group functions",
+          "name": "support.function.numeric.qvs",
+          "match": "(?i)\\b(BitCount|Floor|Round|Ceil|Even|fAbs|Fact|fMod|Frac|Sign|Div|Mod|Odd)(?=\\s*\\()"
+        }
+      ]
+    },
+    "numericInterpretationFunctions": {
+      "patterns": [
+        {
+          "comment": "NUMI group functions",
+          "name": "support.function.numeric-interpretation.qvs",
+          "match": "(?i)\\b(Timestamp\\#|Interval\\#|Timestamp|Interval|Money\\#|Date\\#|Money|Time\\#|Date|Dual|Num\\#|Text|Time|Num)(?=\\s*\\()"
+        }
+      ]
+    },
+    "probabilityFunctions": {
+      "patterns": [
+        {
+          "comment": "PROB group functions",
+          "name": "support.function.probability.qvs",
+          "match": "(?i)\\b(PoissonFrequency|BinomFrequency|PoissonDensity|Chi2Test_Chi2|TTest1w_Lower|TTest1w_StErr|TTest1w_Upper|GammaDensity|TTest1_Lower|TTest1_StErr|TTest1_Upper|TTest1w_Conf|TTestw_Lower|TTestw_StErr|TTestw_Upper|ZTestw_Lower|ZTestw_StErr|ZTestw_Upper|BetaDensity|Chi2Test_DF|PoissonDist|TTest1_Conf|TTest1w_Dif|TTest1w_Sig|TTest_Lower|TTest_StErr|TTest_Upper|TTestw_Conf|ZTest_Lower|ZTest_StErr|ZTest_Upper|ZTestw_Conf|Chi2Test_p|ChiDensity|PoissonInv|TTest1_Dif|TTest1_Sig|TTest1w_DF|TTest_Conf|TTestw_Dif|TTestw_Sig|ZTest_Conf|ZTestw_Dif|ZTestw_Sig|BinomDist|GammaDist|TTest1_DF|TTest1w_t|TTest_Dif|TTest_Sig|TTestw_DF|ZTest_Dif|ZTest_Sig|BetaDist|BinomInv|FDensity|GammaInv|NormDist|TDensity|TTest1_t|TTest_DF|TTestw_t|ZTestw_z|BetaInv|ChiDist|NormInv|TTest_t|ZTest_z|ChiInv|Combin|Permut|FDist|TDist|FInv|Rand|TInv)(?=\\s*\\()"
+        }
+      ]
+    },
+    "interRecordFunctions": {
+      "patterns": [
+        {
+          "comment": "RCRD group functions",
+          "name": "support.function.record.qvs",
+          "match": "(?i)\\b(HCValue|Exists|Lookup|RowNo|Peek)(?=\\s*\\()"
+        }
+      ]
+    },
+    "rangeFunctions": {
+      "patterns": [
+        {
+          "comment": "RNG group functions",
+          "name": "support.function.range.qvs",
+          "match": "(?i)\\b(RangeMissingCount|RangeNumericCount|RangeFractileExc|RangeMaxString|RangeMinString|RangeNullCount|RangeTextCount|RangeFractile|RangeKurtosis|RangeCorrel|RangeCount|RangeStDev|RangeMode|RangeOnly|RangeSkew|RangeXirr|RangeXnpv|Previous|RangeAvg|RangeIrr|RangeMax|RangeMin|RangeNpv|RangeSum)(?=\\s*\\()"
+        }
+      ]
+    },
+    "stringFunctions": {
+      "patterns": [
+        {
+          "comment": "STR group functions",
+          "name": "support.function.string.qvs",
+          "match": "(?i)\\b(ExtractRegExGroupI|ReplaceRegExGroupI|ExtractRegExGroup|ReplaceRegExGroup|IndexRegExGroupI|IndexRegExGroup|LevenshteinDist|SubFieldRegExI|SubStringCount|ApplyCodepage|ExtractRegExI|ReplaceRegExI|SubFieldRegEx|ExtractRegEx|ReplaceRegEx|CountRegExI|IndexRegExI|TextBetween|Capitalize|CountRegEx|IndexRegEx|JsonObject|FindOneOf|JsonSetEx|PurgeChar|Evaluate|KeepChar|SubField|Hash128|Hash160|Hash256|JsonGet|JsonSet|Replace|IsJson|Repeat|Index|Lower|LTrim|Right|RTrim|Upper|Left|Trim|Chr|Len|Mid|Ord)(?=\\s*\\()"
+        }
+      ]
+    },
+    "systemFunctions": {
+      "patterns": [
+        {
+          "comment": "SYS group functions",
+          "name": "support.function.system.qvs",
+          "match": "(?i)\\b(GetCollationLocale|GetDataModelHash|IsPartialReload|ClientPlatform|ProductVersion|DocumentTitle|EngineVersion|ComputerName|DocumentName|DocumentPath|GetUserAttr|TableNumber|GetSysAttr|NoOfTables|ReloadTime|TableName|Author|OSUser)(?=\\s*\\()"
+        }
+      ]
+    },
+    "tableFunctions": {
+      "patterns": [
+        {
+          "comment": "TBL group functions",
+          "name": "support.function.table.qvs",
+          "match": "(?i)\\b(FieldValueCount|GetObjectField|FieldElemNo|FieldNumber|FieldIndex|FieldValue|NoOfFields|FieldName|HCNoRows|NoOfRows)(?=\\s*\\()"
+        }
+      ]
+    },
+    "trigFunctions": {
+      "patterns": [
+        {
+          "comment": "TRIG group functions",
+          "name": "support.function.trigonometric.qvs",
+          "match": "(?i)\\b(Acosh|Asinh|Atan2|Atanh|Acos|Asin|Atan|Cosh|Sinh|Tanh|Cos|Sin|Tan)(?=\\s*\\()"
+        }
+      ]
+    },
+    "windowFunctions": {
+      "patterns": [
+        {
+          "comment": "WINDOW group functions",
+          "name": "support.function.window.qvs",
+          "match": "(?i)\\b(UNBOUNDED|Window|WRank)(?=\\s*\\()"
+        }
+      ]
+    }
+  }
+}

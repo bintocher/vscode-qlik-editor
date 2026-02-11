@@ -1,0 +1,76 @@
+{
+  "name": "vscode-qlik-editor",
+  "displayName": "Qlik Editor",
+  "description": "Syntax highlighting, snippets and documentation links for Qlik Sense and QlikView script files (.qvs)",
+  "version": "1.0.0",
+  "publisher": "bintocher",
+  "author": "bintocher",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.109.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "qlik",
+    "qlik sense",
+    "qlikview",
+    "qvs",
+    "syntax highlighting",
+    "BI",
+    "business intelligence"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bintocher/vscode-qlik-editor.git"
+  },
+  "icon": "images/icon.png",
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:qlik"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "qlik",
+        "aliases": [
+          "Qlik Sense",
+          "QlikView",
+          "qlik"
+        ],
+        "extensions": [
+          ".qvs"
+        ],
+        "configuration": "./qvs.configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "qlik",
+        "scopeName": "source.qvs",
+        "path": "./syntaxes/qvs.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "qlik",
+        "path": "./snippets/qlik.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npm run compile && vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.109.0",
+    "typescript": "^5.9.3"
+  },
+  "bugs": {
+    "url": "https://github.com/bintocher/vscode-qlik-editor/issues"
+  },
+  "homepage": "https://github.com/bintocher/vscode-qlik-editor#readme"
+}
